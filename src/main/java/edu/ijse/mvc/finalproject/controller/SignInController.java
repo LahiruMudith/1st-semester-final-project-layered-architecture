@@ -1,6 +1,9 @@
 package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.DataValidate.DataValidate;
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.SignInBO;
+import edu.ijse.mvc.finalproject.bo.impl.SignInBOImpl;
 import edu.ijse.mvc.finalproject.dto.SignInDto;
 import edu.ijse.mvc.finalproject.model.SignInModel;
 import javafx.event.ActionEvent;
@@ -41,6 +44,8 @@ public class SignInController implements Initializable {
 
     @FXML
     private Label txtError;
+
+    SignInBOImpl signInBO = (SignInBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.SIGNIN);
 
     @FXML
     void btnClose(MouseEvent event) {
@@ -92,7 +97,7 @@ public class SignInController implements Initializable {
                         txtPassword.getText()
                 );
 
-                boolean result = signInModel.SaveAdmin(signInDto);
+                boolean result = signInBO.save(signInDto);
                 if (result) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Sign In");
@@ -124,7 +129,7 @@ public class SignInController implements Initializable {
     }
 
     public void setNextCustomerId(){
-        String newId = signInModel.getNextAdminId();
+        String newId = signInBO.generateNewId();
         txtAdminId.setText(newId);
     }
 

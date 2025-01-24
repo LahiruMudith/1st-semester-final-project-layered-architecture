@@ -1,6 +1,8 @@
 package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.DataValidate.DataValidate;
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.impl.MemberBOImpl;
 import edu.ijse.mvc.finalproject.dto.*;
 import edu.ijse.mvc.finalproject.dto.tm.MemberTM;
 import edu.ijse.mvc.finalproject.model.ManageMemberModel;
@@ -99,6 +101,8 @@ public class ManageMemberController implements Initializable {
     @FXML
     private TextField txtWeight;
 
+    MemberBOImpl memberBO = (MemberBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.MEMBER);
+
     @FXML
     void btnAdd(ActionEvent event) {
         txtName.setStyle(txtName.getStyle() + "; -fx-border-color:  #5FE088");
@@ -164,7 +168,7 @@ public class ManageMemberController implements Initializable {
                         paymentPlan,
                         dietPlanId
                 );
-                boolean b = manageMemberModel.addMember(memberDto);
+                boolean b = memberBO.save(memberDto);
                 if (b){
                     new Alert(Alert.AlertType.CONFIRMATION,"Member Added Successfully").show();
                     pageRefesh();
@@ -178,7 +182,7 @@ public class ManageMemberController implements Initializable {
     @FXML
     void btnDelete(ActionEvent event) {
         String id = txtId.getText();
-        boolean b = manageMemberModel.deleteMember(id);
+        boolean b = memberBO.delete(id);
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION,"Member Delete Successfully").show();
             pageRefesh();
@@ -274,7 +278,7 @@ public class ManageMemberController implements Initializable {
                         paymentPlan,
                         dietPlanId
                 );
-                boolean b = manageMemberModel.updateMember(memberDto);
+                boolean b = memberBO.update(memberDto);
                 if (b){
                     new Alert(Alert.AlertType.CONFIRMATION,"Member Update Successfully").show();
                     pageRefesh();

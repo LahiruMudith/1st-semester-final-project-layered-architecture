@@ -32,16 +32,6 @@ public class SignInModel {
     }
 
     public boolean SaveAdmin(SignInDto signInDto) {
-//        Connection connection = DBConnection.getInstance().getConnection();
-//        try {
-//            connection.setAutoCommit(false);
-//            String adminSql = "insert into admin values(?,?,?,?)";
-//            PreparedStatement preparedStatement = connection.prepareStatement(adminSql);
-//            preparedStatement.setString(1, signInDto.getAdminId());
-//            preparedStatement.setString(2, signInDto.getName());
-//            preparedStatement.setString(3, signInDto.getAddress());
-//            preparedStatement.setString(4, signInDto.getPassword());
-
             boolean isSaveAdmin = CrudUtil.execute("insert into admin values(?,?,?,?)", signInDto.getAdminId(), signInDto.getName(), signInDto.getAddress(), signInDto.getPassword());
             return isSaveAdmin;
     }

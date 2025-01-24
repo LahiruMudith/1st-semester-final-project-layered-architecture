@@ -22,7 +22,6 @@ import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -109,8 +108,6 @@ public class LoginController implements Initializable {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
