@@ -14,7 +14,7 @@ public class LoginBOImpl implements LoginBO {
 
     @Override
     public ArrayList<AdminDto> loadAdminData() throws SQLException {
-        ArrayList<Admin> admins = adminDAO.loadAdminData();
+        ArrayList<Admin> admins = adminDAO.getAll();
         ArrayList<AdminDto> adminDtos = new ArrayList<>();
         for (Admin admin : admins) {
             adminDtos.add(new AdminDto(admin.getAdmin_id(), admin.getName(), admin.getAddress(), admin.getPassword()));

@@ -1,7 +1,6 @@
 package edu.ijse.mvc.finalproject.dao;
 
-import edu.ijse.mvc.finalproject.dao.impl.AdminDAOImpl;
-import edu.ijse.mvc.finalproject.dao.impl.MemberDAOImpl;
+import edu.ijse.mvc.finalproject.dao.impl.*;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -12,7 +11,7 @@ public class DAOFactory {
         return (daoFactory==null) ? daoFactory =new DAOFactory() : daoFactory;
     }
     public enum DAOType{
-        ADMIN,MEMBER
+        ADMIN,MEMBER,EMPLOYEE,FITNESS_CENTER,POSITION_ITEM
     }
     public SuperDAO getDAO(DAOType daoType){
         switch (daoType){
@@ -20,6 +19,12 @@ public class DAOFactory {
                 return new AdminDAOImpl();
             case MEMBER:
                 return new MemberDAOImpl();
+            case EMPLOYEE:
+                return new EmployeeDAOImpl();
+            case FITNESS_CENTER:
+                return new FitnessCenterDAOImpl();
+            case POSITION_ITEM:
+                return new PositionDAOImpl();
             default:
                 return null;
         }

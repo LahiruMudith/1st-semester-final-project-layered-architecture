@@ -1,6 +1,8 @@
 package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.DataValidate.DataValidate;
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.impl.EmployeeBOImpl;
 import edu.ijse.mvc.finalproject.dto.*;
 import edu.ijse.mvc.finalproject.dto.tm.EmployeeTM;
 import edu.ijse.mvc.finalproject.model.ManageEmployeeModel;
@@ -32,7 +34,6 @@ import java.util.ResourceBundle;
 
 public class ManageEmployeeController implements Initializable {
     DataValidate validate = new DataValidate();
-    ManageEmployeeModel manageEmployeeModel = new ManageEmployeeModel();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -104,6 +105,8 @@ public class ManageEmployeeController implements Initializable {
 
     @FXML
     private MenuButton txtPosition;
+
+    EmployeeBOImpl employeeBO = (EmployeeBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.EMPLOYEE);
 
     @FXML
     void tblClick(MouseEvent event) {
@@ -192,7 +195,7 @@ public class ManageEmployeeController implements Initializable {
                         address
                 );
 
-                boolean b = manageEmployeeModel.addEmployee(employeeDto);
+                boolean b = employeeBO.save(employeeDto);
                 if (b){
                     new Alert(Alert.AlertType.CONFIRMATION,"Member Added Successfully").show();
                     pageRefesh();
@@ -215,7 +218,7 @@ public class ManageEmployeeController implements Initializable {
         loadTable();
 
         try {
-            txtId.setText(manageEmployeeModel.getNextEmployeeId());
+            txtId.setText(employeeBO.getNextEmployeeId());
         } catch (SQLException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -224,7 +227,7 @@ public class ManageEmployeeController implements Initializable {
         }
         try {
             MenuButton paymentPlan = (MenuButton) txtCenterId;
-            ArrayList<FitnessCenterDto> centerDetails = manageEmployeeModel.getCenterDetails();
+            ArrayList<FitnessCenterDto> centerDetails = employeeBO.getCenterDetails();
             for(FitnessCenterDto centerDto : centerDetails){
                 MenuItem menuItem = new MenuItem(centerDto.getCenter_name());
                 menuItem.setOnAction(event -> {
@@ -242,7 +245,7 @@ public class ManageEmployeeController implements Initializable {
 
         try {
             MenuButton paymentPlan = (MenuButton) txtPosition;
-            ArrayList<PositionItemDto> centerDetails = manageEmployeeModel.getPositions();
+            ArrayList<PositionItemDto> centerDetails = employeeBO.getPositions();
             for(PositionItemDto centerDto : centerDetails){
                 MenuItem menuItem = new MenuItem(centerDto.getPositionName());
                 menuItem.setOnAction(event -> {
@@ -269,7 +272,7 @@ public class ManageEmployeeController implements Initializable {
 
     public void loadTable() {
         try {
-            ArrayList<EmployeeDto> employeeDtos = manageEmployeeModel.getEmployee();
+            ArrayList<EmployeeDto> employeeDtos = employeeBO.getEmployee();
 
             ObservableList<EmployeeTM> employeeTMS = FXCollections.observableArrayList();
 
@@ -297,7 +300,7 @@ public class ManageEmployeeController implements Initializable {
 
     @FXML
     void btnDelete(ActionEvent event) {
-        boolean b = manageEmployeeModel.deleteEmployee(txtId.getText());
+        boolean b = employeeBO.delete(txtId.getText());
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION,"Member Delete Successfully").show();
             pageRefesh();
@@ -305,7 +308,7 @@ public class ManageEmployeeController implements Initializable {
     }
 
     @FXML
-    void btnUpdate(ActionEvent event) {
+    void btnUpdate(ActionEvent event) throws SQLException {
         txtName.setStyle(txtName.getStyle() + "; -fx-border-color:  #5FE088");
         txtPhoneNumber.setStyle(txtPhoneNumber.getStyle() + "; -fx-border-color:  #5FE088");
         txtAddress.setStyle(txtAddress.getStyle() + "; -fx-border-color:  #5FE088");
@@ -336,18 +339,11 @@ public class ManageEmployeeController implements Initializable {
                 txtAddress.setStyle(txtAddress.getStyle() + "; -fx-border-color: red; -fx-border-width: 0 0 2 0 ");
             }
 
-            try {
-                ArrayList<FitnessCenterDto> centerDetails = manageEmployeeModel.getCenterDetails();
-                for (FitnessCenterDto centerDto : centerDetails) {
-                    if (centerDto.getCenter_name().equals(centerId)) {
-                        centerId= centerDto.getCenter_id();
-                    }
+            ArrayList<FitnessCenterDto> centerDetails = employeeBO.getCenterDetails();
+            for (FitnessCenterDto centerDto : centerDetails) {
+                if (centerDto.getCenter_name().equals(centerId)) {
+                    centerId= centerDto.getCenter_id();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Center Id Set Error");
-                alert.show();
             }
 
             if (validateName && validatePhoneNumber && validateAddress){
@@ -362,7 +358,7 @@ public class ManageEmployeeController implements Initializable {
                         address
                 );
 
-                boolean b = manageEmployeeModel.updateEmployee(employeeDto);
+                boolean b = employeeBO.update(employeeDto);
                 if (b){
                     new Alert(Alert.AlertType.CONFIRMATION,"Member Update Successfully").show();
                     pageRefesh();

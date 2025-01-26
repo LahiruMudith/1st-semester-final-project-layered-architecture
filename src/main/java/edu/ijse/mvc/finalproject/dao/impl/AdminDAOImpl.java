@@ -13,8 +13,21 @@ import java.util.ArrayList;
 
 public class AdminDAOImpl implements AdminDAO {
     @Override
-    public ArrayList<Admin> getAll() {
-        return null;
+    public ArrayList<Admin> getAll() throws SQLException {
+        ResultSet rst =CrudUtil.execute("select * from admin");
+
+        ArrayList<Admin> admins = new ArrayList<>();
+
+        while (rst.next()){
+            Admin adminDto = new Admin(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getString(4)
+            );
+            admins.add(adminDto);
+        }
+        return admins;
     }
 
     @Override
@@ -51,23 +64,5 @@ public class AdminDAOImpl implements AdminDAO {
             alert.show();
         }
         return "000";
-    }
-
-    @Override
-    public ArrayList<Admin> loadAdminData() throws SQLException {
-        ResultSet rst =CrudUtil.execute("select * from admin");
-
-        ArrayList<Admin> admins = new ArrayList<>();
-
-        while (rst.next()){
-            Admin adminDto = new Admin(
-                    rst.getString(1),
-                    rst.getString(2),
-                    rst.getString(3),
-                    rst.getString(4)
-            );
-            admins.add(adminDto);
-        }
-        return admins;
     }
 }

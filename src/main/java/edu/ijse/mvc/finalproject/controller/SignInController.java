@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SignInController implements Initializable {
@@ -129,7 +130,12 @@ public class SignInController implements Initializable {
     }
 
     public void setNextCustomerId(){
-        String newId = signInBO.generateNewId();
+        String newId = null;
+        try {
+            newId = signInBO.generateNewId();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         txtAdminId.setText(newId);
     }
 

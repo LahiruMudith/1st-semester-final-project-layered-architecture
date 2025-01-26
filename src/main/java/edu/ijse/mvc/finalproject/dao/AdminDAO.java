@@ -6,5 +6,4 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface AdminDAO extends CrudDAO<Admin> {
-    ArrayList<Admin> loadAdminData() throws SQLException;
 }
