@@ -1,9 +1,6 @@
 package edu.ijse.mvc.finalproject.bo;
 
-import edu.ijse.mvc.finalproject.bo.impl.EmployeeBOImpl;
-import edu.ijse.mvc.finalproject.bo.impl.LoginBOImpl;
-import edu.ijse.mvc.finalproject.bo.impl.MemberBOImpl;
-import edu.ijse.mvc.finalproject.bo.impl.SignInBOImpl;
+import edu.ijse.mvc.finalproject.bo.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -14,7 +11,7 @@ public class BOFactory {
         return (boFactory==null) ? boFactory = new BOFactory() : boFactory;
     }
     public enum BOType{
-    SIGNIN, LOGIN, MEMBER,EMPLOYEE
+    SIGNIN, LOGIN, MEMBER,EMPLOYEE, DIET_PLAN
     }
     public SuperBO getBO(BOType boType){
         switch (boType){
@@ -26,6 +23,8 @@ public class BOFactory {
                 return new MemberBOImpl();
             case EMPLOYEE:
                 return new EmployeeBOImpl();
+            case DIET_PLAN:
+                return new DietPlanBOImpl();
             default:
                 return null;
         }

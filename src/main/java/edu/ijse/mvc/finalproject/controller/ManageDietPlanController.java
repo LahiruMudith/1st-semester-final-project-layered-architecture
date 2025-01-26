@@ -1,5 +1,7 @@
 package edu.ijse.mvc.finalproject.controller;
 
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.impl.DietPlanBOImpl;
 import edu.ijse.mvc.finalproject.dto.DietPlanDto;
 import edu.ijse.mvc.finalproject.dto.tm.DietPlanTM;
 import edu.ijse.mvc.finalproject.model.DietPlanModel;
@@ -53,6 +55,8 @@ public class ManageDietPlanController implements Initializable {
     @FXML
     private TextField txtAdminId;
 
+    DietPlanBOImpl dietPlanBO = (DietPlanBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.DIET_PLAN);
+
     @FXML
     void btnAdd(ActionEvent event) {
         String id = txtId.getText();
@@ -63,7 +67,7 @@ public class ManageDietPlanController implements Initializable {
 
         DietPlanDto dietPlanDto = new DietPlanDto(id, adminId, name, duration, description);
         System.out.println(dietPlanDto);
-        boolean b = dietPlanModel.addDietPlan(dietPlanDto);
+        boolean b = dietPlanBO.add(dietPlanDto);
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION,"Diet Plan Added Successfully").show();
             pageRefesh();
@@ -73,7 +77,7 @@ public class ManageDietPlanController implements Initializable {
     @FXML
     void btnDelete(ActionEvent event) {
         String id = txtId.getText();
-        boolean b = dietPlanModel.deleteDietPlan(id);
+        boolean b = dietPlanBO.delete(id);
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION,"Diet Plan Delete Successfully").show();
             pageRefesh();
@@ -90,7 +94,7 @@ public class ManageDietPlanController implements Initializable {
 
         DietPlanDto dietPlanDto = new DietPlanDto(id, adminId, name, duration, description);
         System.out.println(dietPlanDto);
-        boolean b = dietPlanModel.updateDietPlan(dietPlanDto);
+        boolean b = dietPlanBO.update(dietPlanDto);
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION,"Diet Plan Update Successfully").show();
             pageRefesh();
@@ -119,6 +123,12 @@ public class ManageDietPlanController implements Initializable {
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
 
+        txtAdminId.setText("");
+        txtDescription.setText("");
+        txtId.setText("");
+        txtName.setText("");
+        txtDuration.setText("");
+
         try {
             txtId.setText(dietPlanModel.getNextDeitPlanId());
             LoginController loginController = new LoginController();
@@ -133,28 +143,28 @@ public class ManageDietPlanController implements Initializable {
         loadTable();
     }
     public void loadTable() {
+        ArrayList<DietPlanDto> dietPlanDtos = null;
         try {
-            ArrayList<DietPlanDto> dietPlanDtos = dietPlanModel.loadTable();
-
-            observableList = FXCollections.observableArrayList();
-
-            for (DietPlanDto dietPlanDto : dietPlanDtos) {
-                DietPlanTM dietPlanTM = new DietPlanTM(
-                        dietPlanDto.getDiet_plan_id(),
-                        dietPlanDto.getAdmin_id(),
-                        dietPlanDto.getName(),
-                        dietPlanDto.getDuration(),
-                        dietPlanDto.getDescription()
-                );
-                observableList.add(dietPlanTM);
-            }
-            tblDeitPlan.setItems(observableList);
+            System.out.println("DietPlanController.loadTable 1" + dietPlanDtos);
+            dietPlanDtos = dietPlanBO.loadTable();
+            System.out.println("DietPlanController.loadTable 2" + dietPlanDtos);
         } catch (SQLException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Table Load Error Error");
-            alert.show();
+            throw new RuntimeException(e);
         }
+
+        observableList = FXCollections.observableArrayList();
+
+        for (DietPlanDto dietPlanDto : dietPlanDtos) {
+            DietPlanTM dietPlanTM = new DietPlanTM(
+                    dietPlanDto.getDiet_plan_id(),
+                    dietPlanDto.getAdmin_id(),
+                    dietPlanDto.getName(),
+                    dietPlanDto.getDuration(),
+                    dietPlanDto.getDescription()
+            );
+            observableList.add(dietPlanTM);
+        }
+        tblDeitPlan.setItems(observableList);
     }
 
     @Override
