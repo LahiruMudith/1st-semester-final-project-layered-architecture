@@ -25,7 +25,6 @@ import java.util.ResourceBundle;
 
 public class ManageMemberController implements Initializable {
     DataValidate validate = new DataValidate();
-    ManageMemberModel manageMemberModel = new ManageMemberModel();
     @FXML
     private Button btnAdd;
 
@@ -240,19 +239,19 @@ public class ManageMemberController implements Initializable {
             }
 
             try {
-                ArrayList<ScheduleDto> schedule = manageMemberModel.getSchedule();
+                ArrayList<ScheduleDto> schedule = memberBO.getSchedule();
                 for (ScheduleDto scheduleDto : schedule) {
                     if (scheduleDto.getName().equals(scheduleId)) {
                         scheduleId = scheduleDto.getSchedule_id();
                     }
                 }
-                ArrayList<PaymentPlanDto> paymentPlanDtos = manageMemberModel.getPaymentPlan();
+                ArrayList<PaymentPlanDto> paymentPlanDtos = memberBO.getPaymentPlan();
                 for (PaymentPlanDto paymentPlanDto : paymentPlanDtos) {
                     if (paymentPlanDto.getPlan_name().equals(paymentPlan)) {
                         paymentPlan = paymentPlanDto.getPlan_id();
                     }
                 }
-                ArrayList<DietPlanDto>  dietPlanDtos = manageMemberModel.getDietPlan();
+                ArrayList<DietPlanDto>  dietPlanDtos = memberBO.getDietPlan();
                 for (DietPlanDto dietPlanDto : dietPlanDtos) {
                     if (dietPlanDto.getName().equals(dietPlanId)) {
                         dietPlanId = dietPlanDto.getDiet_plan_id();
@@ -319,7 +318,7 @@ public class ManageMemberController implements Initializable {
 
     public void loadTable(){
         try {
-            ArrayList<MemberDto> memberDto = manageMemberModel.getMember();
+            ArrayList<MemberDto> memberDto = memberBO.getAll();
 
             ObservableList<MemberTM> memberTMS = FXCollections.observableArrayList();
 
@@ -345,6 +344,8 @@ public class ManageMemberController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Member Table Error");
             alert.show();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -363,10 +364,10 @@ public class ManageMemberController implements Initializable {
 
         try {
 
-            txtId.setText(manageMemberModel.getNextMemberId());
+            txtId.setText(memberBO.getNextMemberId());
 
             MenuButton paymentPlan = (MenuButton) txtPaymentPlan;
-            ArrayList<PaymentPlanDto> paymentPlanList = manageMemberModel.getPaymentPlan();
+            ArrayList<PaymentPlanDto> paymentPlanList = memberBO.getPaymentPlan();
             for(PaymentPlanDto paymentDto : paymentPlanList){
                 MenuItem menuItem = new MenuItem(paymentDto.getPlan_name());
                 menuItem.setOnAction(event -> {
@@ -377,7 +378,7 @@ public class ManageMemberController implements Initializable {
             }
 
             MenuButton schedule = (MenuButton) txtScheduleId;
-            ArrayList<ScheduleDto> scheduleList = manageMemberModel.getSchedule();
+            ArrayList<ScheduleDto> scheduleList = memberBO.getSchedule();
             for(ScheduleDto scheduleDto : scheduleList){
                 MenuItem menuItem = new MenuItem(scheduleDto.getName());
                 menuItem.setOnAction(event -> {
@@ -388,7 +389,7 @@ public class ManageMemberController implements Initializable {
             }
 
             MenuButton dietPlan = (MenuButton) txtDietPlanId;
-            ArrayList<DietPlanDto> dietPlanName = manageMemberModel.getDietPlan();
+            ArrayList<DietPlanDto> dietPlanName = memberBO.getDietPlan();
             for(DietPlanDto dietPlanDto : dietPlanName){
                 MenuItem menuItem = new MenuItem(dietPlanDto.getName());
                 menuItem.setOnAction(event -> {
@@ -406,7 +407,7 @@ public class ManageMemberController implements Initializable {
         }
         try {
 
-            txtId.setText(manageMemberModel.getNextMemberId());
+            txtId.setText(memberBO.getNextMemberId());
         } catch (SQLException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
