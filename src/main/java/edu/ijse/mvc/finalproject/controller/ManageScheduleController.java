@@ -104,10 +104,14 @@ public class ManageScheduleController implements Initializable {
         colCount.setCellValueFactory(new PropertyValueFactory<ScheduleTM, Integer>("exercise_count"));
         colSet.setCellValueFactory(new PropertyValueFactory<ScheduleTM, Integer>("exercise_set"));
 
-        pageRefesh();
+        try {
+            pageRefesh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void pageRefesh() {
+    private void pageRefesh() throws SQLException {
         btnAdd.setDisable(false);
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
@@ -134,22 +138,15 @@ public class ManageScheduleController implements Initializable {
             });
             paymentPlan.getItems().add(menuItem);
         }
-        try {
-            ArrayList<AdminDto> admin = scheduleModel.getAdmin();
-            MenuButton paymentPlanMenuBtn = (MenuButton) txtAdminId;
-            for(AdminDto adminDto : admin){
-                MenuItem menuItem = new MenuItem(adminDto.getName());
-                menuItem.setOnAction(event -> {
-                    txtAdminId.setText(adminDto.getName());
-                    txtAdminId.setId(adminDto.getAdmin_id());
-                });
-                paymentPlanMenuBtn.getItems().add(menuItem);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Admin Menu Set Error");
-            alert.show();
+        ArrayList<AdminDto> admin = scheduleBO.getAdmin();
+        MenuButton paymentPlanMenuBtn = (MenuButton) txtAdminId;
+        for(AdminDto adminDto : admin){
+            MenuItem menuItem = new MenuItem(adminDto.getName());
+            menuItem.setOnAction(event -> {
+                txtAdminId.setText(adminDto.getName());
+                txtAdminId.setId(adminDto.getAdmin_id());
+            });
+            paymentPlanMenuBtn.getItems().add(menuItem);
         }
 
         loadTable();
@@ -157,7 +154,7 @@ public class ManageScheduleController implements Initializable {
 
     private void loadTable() {
         try {
-            ArrayList<ExerciseScheduleDto> exerciseScheduleDtos = scheduleModel.getSchedule();
+            ArrayList<ExerciseScheduleDto> exerciseScheduleDtos = scheduleBO.getSchedule();
             ObservableList<ExerciseScheduleTM> dtos = FXCollections.observableArrayList();
             Set<String> uniqueScheduleIds = new HashSet<>();
 
@@ -229,7 +226,7 @@ public class ManageScheduleController implements Initializable {
 
             stage.showAndWait();
             pageRefesh();
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Exercise Add Menu Load Fail");
@@ -246,8 +243,6 @@ public class ManageScheduleController implements Initializable {
             String scheduleName = txtName.getText();
             String adminId = txtAdminId.getId();
 
-            ScheduleDto scheduleDto = new ScheduleDto(scheduleId, scheduleName, adminId);
-
             ArrayList<ExerciseScheduleDto> exerciseScheduleDtos = new ArrayList<>();
 
             for (ExerciseScheduleTM tm : tms){
@@ -262,10 +257,17 @@ public class ManageScheduleController implements Initializable {
                 );
                 exerciseScheduleDtos.add(exerciseScheduleDto);
             }
+            ScheduleDto scheduleDto = new ScheduleDto(scheduleId, scheduleName, adminId, exerciseScheduleDtos);
+
             try {
-                boolean b = scheduleModel.addSchedule(scheduleDto, exerciseScheduleDtos);
-                new Alert(Alert.AlertType.CONFIRMATION,"Schedule Add Successfully").show();
-                pageRefesh();
+                boolean b = scheduleBO.save(scheduleDto);
+                if (b){
+                    new Alert(Alert.AlertType.CONFIRMATION,"Schedule Add Successfully.").show();
+                    pageRefesh();
+                }else {
+                    new Alert(Alert.AlertType.CONFIRMATION,"Schedule Add Fail.").show();
+                    pageRefesh();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -276,9 +278,9 @@ public class ManageScheduleController implements Initializable {
     }
 
     @FXML
-    void btnDelete(ActionEvent event) {
+    void btnDelete(ActionEvent event) throws SQLException {
         String id = txtId.getText();
-        boolean b = scheduleModel.deleteSchedule(id);
+        boolean b = scheduleBO.delete(id);
         if (b){
             new Alert(Alert.AlertType.CONFIRMATION,"Schedule Delete Successfully").show();
             pageRefesh();
@@ -293,7 +295,6 @@ public class ManageScheduleController implements Initializable {
             String scheduleId = txtId.getText();
             String exerciseName = txtName.getText();
             String adminId = txtAdminId.getId();
-            ScheduleDto scheduleDto = new ScheduleDto(scheduleId, exerciseName, adminId);
 
             ArrayList<ExerciseScheduleDto> exerciseScheduleDtos = new ArrayList<>();
 
@@ -309,8 +310,9 @@ public class ManageScheduleController implements Initializable {
                 );
                 exerciseScheduleDtos.add(exerciseScheduleDto);
             }
+            ScheduleDto scheduleDto = new ScheduleDto(scheduleId, exerciseName, adminId, exerciseScheduleDtos);
             try {
-                boolean b = scheduleModel.updateSchedule(scheduleDto, exerciseScheduleDtos);
+                boolean b = scheduleBO.update(scheduleDto);
                 if (b){
                     new Alert(Alert.AlertType.CONFIRMATION,"Schedule Update Successfully").show();
                     pageRefesh();
@@ -337,7 +339,7 @@ public class ManageScheduleController implements Initializable {
         btnDelete.setDisable(false);
         btnUpdate.setDisable(false);
 
-        ArrayList<ExerciseScheduleDto> exerciseScheduleDtos = scheduleModel.getSchedule();
+        ArrayList<ExerciseScheduleDto> exerciseScheduleDtos = scheduleBO.getSchedule();
         String selectedId = tblMember.getSelectionModel().getSelectedItem().getSchedule_id();
         ObservableList<ExerciseScheduleTM> dtos = FXCollections.observableArrayList();
 

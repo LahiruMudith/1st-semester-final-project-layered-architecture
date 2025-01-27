@@ -70,7 +70,7 @@ public class SignInController implements Initializable {
     }
 
     @FXML
-    void btnSignIn(ActionEvent event) {
+    void btnSignIn(ActionEvent event) throws SQLException {
         txtName.setStyle(txtName.getStyle() + "; -fx-border-color:  #FFFFFF; -fx-border-width: 0 0 0 0");
         txtPassword.setStyle(txtPassword.getStyle() + "; -fx-border-color:  #FFFFFF; -fx-border-width: 0 0 0 0");
         txtAddress.setStyle(txtAddress.getStyle() + "; -fx-border-color:  #FFFFFF; -fx-border-width: 0 0 0 0");

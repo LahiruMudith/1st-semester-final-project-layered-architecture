@@ -58,7 +58,7 @@ public class ManageDietPlanController implements Initializable {
     DietPlanBOImpl dietPlanBO = (DietPlanBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.DIET_PLAN);
 
     @FXML
-    void btnAdd(ActionEvent event) {
+    void btnAdd(ActionEvent event) throws SQLException {
         String id = txtId.getText();
         String name = txtName.getText();
         String adminId = txtAdminId.getText();

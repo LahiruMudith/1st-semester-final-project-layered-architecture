@@ -13,7 +13,7 @@ public interface ScheduleBO extends SuperBO{
 
     ArrayList<ExerciseDto> getExercise() throws SQLException;
 
-    ArrayList<AdminDto> getAdmin() throws SQLException;
+    ArrayList<AdminDto> getAdmin();
 
     ArrayList<ExerciseScheduleDto> getSchedule() throws SQLException;
 

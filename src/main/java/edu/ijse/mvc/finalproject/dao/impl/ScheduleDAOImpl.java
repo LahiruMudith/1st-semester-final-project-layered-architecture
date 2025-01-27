@@ -1,9 +1,12 @@
 package edu.ijse.mvc.finalproject.dao.impl;
 
 import edu.ijse.mvc.finalproject.dao.ScheduleDAO;
+import edu.ijse.mvc.finalproject.db.DBConnection;
+import edu.ijse.mvc.finalproject.dto.ExerciseScheduleDto;
 import edu.ijse.mvc.finalproject.entity.Schedule;
 import edu.ijse.mvc.finalproject.util.CrudUtil;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,17 +30,28 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 
     @Override
     public boolean save(Schedule entity) {
-        return false;
+        return CrudUtil.execute("insert into schedule VALUES(?,?,?)",
+                entity.getSchedule_id(),
+                entity.getName(),
+                entity.getAdmin_id()
+        );
     }
 
     @Override
     public boolean update(Schedule entity) {
-        return false;
+        System.out.println(entity.toString());
+        return CrudUtil.execute("UPDATE schedule SET name = ?, admin_id = ? WHERE schedule_id = ?",
+                entity.getSchedule_id(),
+                entity.getName(),
+                entity.getAdmin_id()
+        );
     }
 
     @Override
     public boolean delete(String id) {
-        return false;
+        return CrudUtil.execute("delete from schedule where schedule_id = ?",
+                id
+        );
     }
 
     @Override

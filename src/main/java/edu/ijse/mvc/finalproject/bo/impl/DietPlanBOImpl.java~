@@ -13,7 +13,7 @@ public class DietPlanBOImpl implements DietPlanBO {
     DietPlanDAO dietPlanDAO = (DietPlanDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.DIET_PLAN);
 
     @Override
-    public boolean add(DietPlanDto dietPlanDto) throws SQLException {
+    public boolean add(DietPlanDto dietPlanDto) {
         return dietPlanDAO.save(new DietPlan(
                 dietPlanDto.getDiet_plan_id(),
                 dietPlanDto.getAdmin_id(),

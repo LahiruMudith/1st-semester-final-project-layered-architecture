@@ -5,6 +5,6 @@ import edu.ijse.mvc.finalproject.dto.SignInDto;
 import java.sql.SQLException;
 
 public interface SignInBO extends SuperBO{
-    boolean save(SignInDto signInDto);
+    boolean save(SignInDto signInDto) throws SQLException;
     String generateNewId() throws SQLException;
 }

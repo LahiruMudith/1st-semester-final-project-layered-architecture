@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DietPlanBO extends SuperBO{
-    boolean add(DietPlanDto dietPlanDto);
+    boolean add(DietPlanDto dietPlanDto) throws SQLException;
 
     boolean delete(String id);
 
