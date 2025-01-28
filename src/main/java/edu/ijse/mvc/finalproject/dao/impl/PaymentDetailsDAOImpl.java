@@ -1,9 +1,11 @@
 package edu.ijse.mvc.finalproject.dao.impl;
 
 import edu.ijse.mvc.finalproject.dao.PaymentDetailsDAO;
+import edu.ijse.mvc.finalproject.dto.tm.PaymentDetailTM;
 import edu.ijse.mvc.finalproject.entity.PaymentDetail;
 import edu.ijse.mvc.finalproject.util.CrudUtil;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -44,5 +46,30 @@ public class PaymentDetailsDAOImpl implements PaymentDetailsDAO {
     @Override
     public PaymentDetail search(String id) throws Exception {
         return null;
+    }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
+
+    @Override
+    public ArrayList<PaymentDetail> getPaymentDetails(String id) throws Exception {
+        ResultSet rst = CrudUtil.execute("select * from paymentdetail where member_id = ?", id);
+
+        ArrayList<PaymentDetail> paymentDetails = new ArrayList<>();
+        while (rst.next()){
+            PaymentDetail paymentDetailTM = new PaymentDetail(
+                    rst.getString(1),
+                    rst.getString(2),
+                    rst.getString(3),
+                    rst.getDate(4),
+                    rst.getDouble(5),
+                    rst.getString(6),
+                    rst.getString(7)
+            );
+            paymentDetails.add(paymentDetailTM);
+        }
+        return paymentDetails;
     }
 }

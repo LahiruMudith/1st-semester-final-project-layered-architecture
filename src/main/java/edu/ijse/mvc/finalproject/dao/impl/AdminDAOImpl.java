@@ -70,4 +70,9 @@ public class AdminDAOImpl implements AdminDAO {
     public Admin search(String id) throws Exception {
         return null;
     }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
 }

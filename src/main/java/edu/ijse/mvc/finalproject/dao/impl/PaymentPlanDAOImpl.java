@@ -49,6 +49,21 @@ public class PaymentPlanDAOImpl implements PaymentPlanDAO {
 
     @Override
     public PaymentPlan search(String id) throws Exception {
+        ResultSet rst = CrudUtil.execute("select * from payment_plan where plan_id = ?", id);
+
+        if (rst.next()){
+            PaymentPlan paymentPlan = new PaymentPlan(
+                    rst.getString(1),
+                    rst.getString(1),
+                    rst.getDouble(1)
+            );
+            return paymentPlan;
+        }
         return null;
+    }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
     }
 }

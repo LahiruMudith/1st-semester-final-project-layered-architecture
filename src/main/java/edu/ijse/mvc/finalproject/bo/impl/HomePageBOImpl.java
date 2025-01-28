@@ -6,6 +6,7 @@ import edu.ijse.mvc.finalproject.dao.impl.PaymentDAOImpl;
 import edu.ijse.mvc.finalproject.db.DBConnection;
 import edu.ijse.mvc.finalproject.dto.MemberDto;
 import edu.ijse.mvc.finalproject.dto.PaymentDetailDto;
+import edu.ijse.mvc.finalproject.dto.tm.PaymentDetailTM;
 import edu.ijse.mvc.finalproject.entity.Member;
 import edu.ijse.mvc.finalproject.entity.Payment;
 import edu.ijse.mvc.finalproject.entity.PaymentDetail;
@@ -14,6 +15,7 @@ import edu.ijse.mvc.finalproject.util.CrudUtil;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class HomePageBOImpl implements HomePageBO {
     PaymentDAO paymentDAO = (PaymentDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PAYMENT);
@@ -80,5 +82,29 @@ public class HomePageBOImpl implements HomePageBO {
                 member.getPlan_id(),
                 member.getDiet_plan_id()
         );
+    }
+
+    @Override
+    public String getPlanId(String text) throws Exception {
+        PaymentDetail search = paymentDetailsDAO.search(text);
+        return String.valueOf(search.getPrice());
+    }
+
+    @Override
+    public ArrayList<PaymentDetailTM> loadTable(String text) throws Exception {
+        ArrayList<PaymentDetail> paymentDetails = paymentDetailsDAO.getPaymentDetails(text);
+        ArrayList<PaymentDetailTM> paymentDetailTMS = new ArrayList<>();
+        for (PaymentDetail paymentDetail : paymentDetails) {
+            paymentDetailTMS.add(new PaymentDetailTM(
+                    paymentDetail.getPayment_id(),
+                    paymentDetail.getMember_id(),
+                    paymentDetail.getMember_name(),
+                    paymentDetail.getPayment_date(),
+                    paymentDetail.getPrice(),
+                    paymentDetail.getPayment_method(),
+                    paymentDetail.getMonth()
+            ));
+        }
+        return paymentDetailTMS;
     }
 }

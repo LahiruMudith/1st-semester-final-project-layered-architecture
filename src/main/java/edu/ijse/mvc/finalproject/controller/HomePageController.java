@@ -215,7 +215,7 @@ public class HomePageController implements Initializable {
             txtId.setText(memberDto.getMember_id());
             txtMemberName.setText(memberDto.getName());
             txtPlanId.setText(memberDto.getPlan_id());
-            txtPrice.setText(homePageModel.getPlanId(txtPlanId.getText()));
+            txtPrice.setText(homePageBO.getPlanId(txtPlanId.getText()));
             memeberEmail = memberDto.getEmail();
 
             loadTable();
@@ -231,7 +231,7 @@ public class HomePageController implements Initializable {
 
     private void loadTable() {
         try {
-            ArrayList<PaymentDetailTM> paymentDetailTMS = homePageModel.loadTable(txtId.getText());
+            ArrayList<PaymentDetailTM> paymentDetailTMS = homePageBO.loadTable(txtId.getText());
             ObservableList<PaymentDetailTM> paymentDetailTMObservableList = FXCollections.observableArrayList();
             paymentDetailTMObservableList.addAll(paymentDetailTMS);
             tblMember.setItems(paymentDetailTMObservableList);
@@ -240,6 +240,8 @@ public class HomePageController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Member Table Load Error");
             alert.show();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

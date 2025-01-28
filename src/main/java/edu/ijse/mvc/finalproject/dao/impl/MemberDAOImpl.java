@@ -126,4 +126,9 @@ public class MemberDAOImpl implements MemberDAO {
         }
         return null;
     }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
 }

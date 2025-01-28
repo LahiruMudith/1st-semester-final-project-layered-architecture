@@ -51,4 +51,9 @@ public class ExerciseDAOImpl implements ExerciseDAO {
     public Exercise search(String id) throws Exception {
         return null;
     }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
 }

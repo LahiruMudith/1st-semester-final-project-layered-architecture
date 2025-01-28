@@ -72,4 +72,9 @@ public class ScheduleDAOImpl implements ScheduleDAO {
     public Schedule search(String id) throws Exception {
         return null;
     }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
 }

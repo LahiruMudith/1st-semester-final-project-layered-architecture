@@ -82,4 +82,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public Employee search(String id) throws Exception {
         return null;
     }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
 }

@@ -51,4 +51,9 @@ public class FitnessCenterDAOImpl implements FitnessCenterDAO {
     public FitnessCenter search(String id) throws Exception {
         return null;
     }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
 }

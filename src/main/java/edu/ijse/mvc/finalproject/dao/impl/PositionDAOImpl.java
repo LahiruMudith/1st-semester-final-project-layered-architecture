@@ -48,4 +48,9 @@ public class PositionDAOImpl implements PositionDAO {
     public PositionItem search(String id) throws Exception {
         return null;
     }
+
+    @Override
+    public int getCount() throws SQLException, ClassNotFoundException {
+        return 0;
+    }
 }
