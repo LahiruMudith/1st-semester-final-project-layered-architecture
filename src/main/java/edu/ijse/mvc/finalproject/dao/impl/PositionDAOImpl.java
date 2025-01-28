@@ -43,4 +43,9 @@ public class PositionDAOImpl implements PositionDAO {
     public String generateNewId() {
         return "";
     }
+
+    @Override
+    public PositionItem search(String id) throws Exception {
+        return null;
+    }
 }

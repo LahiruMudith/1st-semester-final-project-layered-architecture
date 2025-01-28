@@ -46,4 +46,9 @@ public class ExerciseDAOImpl implements ExerciseDAO {
     public String generateNewId() throws SQLException {
         return "";
     }
+
+    @Override
+    public Exercise search(String id) throws Exception {
+        return null;
+    }
 }

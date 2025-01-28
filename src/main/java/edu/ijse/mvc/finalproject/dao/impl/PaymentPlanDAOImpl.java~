@@ -46,9 +46,4 @@ public class PaymentPlanDAOImpl implements PaymentPlanDAO {
     public String generateNewId() throws SQLException {
         return "";
     }
-
-    @Override
-    public PaymentPlan search(String id) throws Exception {
-        return null;
-    }
 }

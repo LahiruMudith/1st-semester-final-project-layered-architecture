@@ -68,4 +68,9 @@ public class ExerciseScheduleDAOImpl implements ExerciseScheduleDAO {
     public String generateNewId() throws SQLException {
         return "";
     }
+
+    @Override
+    public ExerciseSchedule search(String id) throws Exception {
+        return null;
+    }
 }

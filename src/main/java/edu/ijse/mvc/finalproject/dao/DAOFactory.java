@@ -11,7 +11,7 @@ public class DAOFactory {
         return (daoFactory==null) ? daoFactory =new DAOFactory() : daoFactory;
     }
     public enum DAOType{
-        ADMIN,MEMBER,EMPLOYEE,FITNESS_CENTER,POSITION_ITEM, DIET_PLAN,SCHEDULE,PAYMENT,PAYMENT_PLAN,EXERCISE,EXERCISE_SCHEDULE
+        ADMIN,MEMBER,EMPLOYEE,FITNESS_CENTER,POSITION_ITEM, DIET_PLAN,SCHEDULE,PAYMENT,PAYMENT_PLAN,EXERCISE,EXERCISE_SCHEDULE,PAYMENT_DETAILS
     }
     public SuperDAO getDAO(DAOType daoType){
         switch (daoType){
@@ -37,6 +37,8 @@ public class DAOFactory {
                 return new ExerciseDAOImpl();
             case EXERCISE_SCHEDULE:
                 return new ExerciseScheduleDAOImpl();
+            case PAYMENT_DETAILS:
+                return new PaymentDetailsDAOImpl();
             default:
                 return null;
         }

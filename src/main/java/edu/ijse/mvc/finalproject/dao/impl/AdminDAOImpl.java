@@ -65,4 +65,9 @@ public class AdminDAOImpl implements AdminDAO {
         }
         return "000";
     }
+
+    @Override
+    public Admin search(String id) throws Exception {
+        return null;
+    }
 }

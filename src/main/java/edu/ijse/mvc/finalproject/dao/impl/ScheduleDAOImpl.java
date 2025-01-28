@@ -67,4 +67,9 @@ public class ScheduleDAOImpl implements ScheduleDAO {
         }
         return null;
     }
+
+    @Override
+    public Schedule search(String id) throws Exception {
+        return null;
+    }
 }

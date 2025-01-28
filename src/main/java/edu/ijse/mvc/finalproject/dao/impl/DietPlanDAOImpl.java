@@ -69,4 +69,9 @@ public class DietPlanDAOImpl implements DietPlanDAO {
         }
         return null;
     }
+
+    @Override
+    public DietPlan search(String id) throws Exception {
+        return null;
+    }
 }

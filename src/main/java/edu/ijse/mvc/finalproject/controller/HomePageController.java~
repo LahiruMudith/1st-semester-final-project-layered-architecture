@@ -224,8 +224,6 @@ public class HomePageController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Member Detail Load Error");
             alert.show();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
     }
 

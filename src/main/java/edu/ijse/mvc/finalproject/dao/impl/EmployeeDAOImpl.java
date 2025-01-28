@@ -77,4 +77,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         }
         return null;
     }
+
+    @Override
+    public Employee search(String id) throws Exception {
+        return null;
+    }
 }

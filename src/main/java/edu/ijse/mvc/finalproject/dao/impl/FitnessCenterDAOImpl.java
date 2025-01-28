@@ -46,4 +46,9 @@ public class FitnessCenterDAOImpl implements FitnessCenterDAO {
     public String generateNewId() {
         return "";
     }
+
+    @Override
+    public FitnessCenter search(String id) throws Exception {
+        return null;
+    }
 }

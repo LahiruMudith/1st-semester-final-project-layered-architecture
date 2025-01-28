@@ -17,4 +17,5 @@ public class PaymentDetailDto {
     double price;
     String payment_method;
     String month;
+    String admin_id;
 }

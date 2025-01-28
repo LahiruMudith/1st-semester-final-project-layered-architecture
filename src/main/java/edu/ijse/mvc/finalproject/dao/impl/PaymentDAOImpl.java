@@ -28,7 +28,11 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public boolean save(Payment entity) {
-        return false;
+        return CrudUtil.execute("insert into payment values (?,?,?)",
+                entity.getPayment_id(),
+                entity.getPayment_date(),
+                entity.getAdmin_id()
+        );
     }
 
     @Override
@@ -43,6 +47,20 @@ public class PaymentDAOImpl implements PaymentDAO {
 
     @Override
     public String generateNewId() throws SQLException {
-        return "";
+        ResultSet resultSet = CrudUtil.execute("select payment_id from payment order by payment_id desc limit 1");
+
+        if (resultSet.next()){
+            String lastId = resultSet.getString(1);
+            String substring = lastId.substring(1);
+            int i = Integer.parseInt(substring);
+            int newIdIndex = i + 1;
+            return String.format("P%03d", newIdIndex);
+        }
+        return null;
+    }
+
+    @Override
+    public Payment search(String id) throws Exception {
+        return null;
     }
 }

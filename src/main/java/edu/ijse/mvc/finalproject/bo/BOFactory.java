@@ -11,7 +11,7 @@ public class BOFactory {
         return (boFactory==null) ? boFactory = new BOFactory() : boFactory;
     }
     public enum BOType{
-    SIGNIN, LOGIN, MEMBER,EMPLOYEE,DIET_PLAN,SCHEDULE
+    SIGNIN, LOGIN, MEMBER,EMPLOYEE,DIET_PLAN,SCHEDULE,HOME_PAGE
     }
     public SuperBO getBO(BOType boType){
         switch (boType){
@@ -27,6 +27,8 @@ public class BOFactory {
                 return new DietPlanBOImpl();
             case SCHEDULE:
                 return new ScheduleBOImpl();
+            case HOME_PAGE:
+                return new HomePageBOImpl();
             default:
                 return null;
         }
