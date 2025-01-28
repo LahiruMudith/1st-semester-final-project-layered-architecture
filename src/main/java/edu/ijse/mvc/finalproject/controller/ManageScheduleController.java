@@ -92,7 +92,6 @@ public class ManageScheduleController implements Initializable {
     private TextField txtSet;
 
     DataValidate validate = new DataValidate();
-    private ScheduleModel scheduleModel = new ScheduleModel();
     private ObservableList<ExerciseScheduleTM> tms = FXCollections.observableArrayList();
     ScheduleBOImpl scheduleBO = (ScheduleBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.SCHEDULE);
 
@@ -186,29 +185,25 @@ public class ManageScheduleController implements Initializable {
 
     @FXML
     void btnAddExercise(MouseEvent event) {
-        String scheduleId = txtId.getText();
-        String scheduleName = txtName.getText();
-        String adminId = txtAdminId.getId();
-        String exerciseId = txtExercise.getId();
-        String exerciseName = txtExercise.getText();
-        int exerciseSet = Integer.parseInt(txtSet.getText());
-        int exerciseCount = Integer.parseInt(txtCount.getText());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ExerciseAdd.fxml"));
+        try {
+            Parent load = loader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setScene(new Scene(load));
+            stage.setResizable(true);
+            stage.initModality(Modality.WINDOW_MODAL);
+            Window underWindow = btnAdd.getScene().getWindow();
+            stage.initOwner(underWindow);
 
-        ExerciseScheduleTM exerciseScheduleTM = new ExerciseScheduleTM(
-            scheduleId,
-            exerciseId,
-            exerciseName,
-            scheduleName,
-            exerciseCount,
-            exerciseSet,
-            adminId
-        );
-        tms.add(exerciseScheduleTM);
-        for (ExerciseScheduleTM tm : tms) {
-            System.out.println(tm.getExercise_name());
+            stage.showAndWait();
+            pageRefesh();
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Exercise Add Menu Load Fail");
+            alert.show();
         }
-
-        tblDescription.setItems(tms);
     }
 
     @FXML

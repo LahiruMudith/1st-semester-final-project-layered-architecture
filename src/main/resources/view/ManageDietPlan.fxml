@@ -111,7 +111,7 @@
                               <Image url="@../assets/icon/id.png" />
                            </image>
                         </ImageView>
-                        <TextField fx:id="txtAdminId" accessibleText="Name" layoutX="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="56.0" style="-fx-background-color: #5FE088;">
+                        <TextField fx:id="txtAdminId" accessibleText="Name" layoutX="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="92.0" style="-fx-background-color: #5FE088;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
