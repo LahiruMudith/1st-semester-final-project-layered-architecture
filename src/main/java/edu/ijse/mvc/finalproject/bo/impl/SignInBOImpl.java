@@ -11,12 +11,12 @@ import java.sql.SQLException;
 public class SignInBOImpl implements SignInBO {
     AdminDAO adminDAO = (AdminDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ADMIN);
     @Override
-    public boolean save(SignInDto signInDto) throws SQLException {
+    public boolean save(SignInDto signInDto) throws SQLException, ClassNotFoundException {
         return adminDAO.save(new Admin(signInDto.getAdminId(), signInDto.getName(), signInDto.getAddress(), signInDto.getPassword()));
     }
 
     @Override
-    public String generateNewId() throws SQLException {
+    public String generateNewId() throws SQLException, ClassNotFoundException {
         return adminDAO.generateNewId();
     }
 }

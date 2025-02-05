@@ -96,8 +96,7 @@ public class HomePageModel{
                         paymentDetailDto.getMember_name(),
                         paymentDetailDto.getPayment_date(),
                         paymentDetailDto.getPrice(),
-                        paymentDetailDto.getPayment_method(),
-                        paymentDetailDto.getMonth()
+                        paymentDetailDto.getPayment_method()
                         );
 
                 if (isSavedPaymentDetailsTable){

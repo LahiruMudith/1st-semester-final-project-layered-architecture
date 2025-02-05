@@ -105,12 +105,12 @@ public class ManageScheduleController implements Initializable {
 
         try {
             pageRefesh();
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void pageRefesh() throws SQLException {
+    private void pageRefesh() throws SQLException, ClassNotFoundException {
         btnAdd.setDisable(false);
         btnDelete.setDisable(true);
         btnUpdate.setDisable(true);
@@ -125,6 +125,8 @@ public class ManageScheduleController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Schedule Id Set Error");
             alert.show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
         ArrayList<ExerciseDto> exercise = scheduleBO.getExercise();
         MenuButton paymentPlan = (MenuButton) txtExercise;
@@ -175,7 +177,7 @@ public class ManageScheduleController implements Initializable {
                 }
                 tblMember.setItems(dtos);
             }
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Schedule Table Load Error");
@@ -198,7 +200,7 @@ public class ManageScheduleController implements Initializable {
 
             stage.showAndWait();
             pageRefesh();
-        } catch (IOException | SQLException e) {
+        } catch (IOException | SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Exercise Add Menu Load Fail");
@@ -226,6 +228,8 @@ public class ManageScheduleController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Exercise Add Menu Load Fail");
             alert.show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -263,7 +267,7 @@ public class ManageScheduleController implements Initializable {
                     new Alert(Alert.AlertType.CONFIRMATION,"Schedule Add Fail.").show();
                     pageRefesh();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Schedule Added Fail");
@@ -273,7 +277,7 @@ public class ManageScheduleController implements Initializable {
     }
 
     @FXML
-    void btnDelete(ActionEvent event) throws SQLException {
+    void btnDelete(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = txtId.getText();
         boolean b = scheduleBO.delete(id);
         if (b){
@@ -312,7 +316,7 @@ public class ManageScheduleController implements Initializable {
                     new Alert(Alert.AlertType.CONFIRMATION,"Schedule Update Successfully").show();
                     pageRefesh();
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Schedule Update Fail");
@@ -322,7 +326,7 @@ public class ManageScheduleController implements Initializable {
     }
 
     @FXML
-    void tblClick(MouseEvent event) throws SQLException {
+    void tblClick(MouseEvent event) throws SQLException, ClassNotFoundException {
 //        txtExercise.setDisable(true);
 //        txtCount.setEditable(false);
 //        txtCount.setDisable(true);

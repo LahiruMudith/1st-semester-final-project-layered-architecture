@@ -53,8 +53,7 @@ public class HomePageBOImpl implements HomePageBO {
                     paymentDetailDto.getMember_name(),
                     paymentDetailDto.getPayment_date(),
                     paymentDetailDto.getPrice(),
-                    paymentDetailDto.getPayment_method(),
-                    paymentDetailDto.getMonth()
+                    paymentDetailDto.getPayment_method()
             ));
             if (!isSavedPaymentDetailsTable){
                 connection.rollback();
@@ -104,8 +103,7 @@ public class HomePageBOImpl implements HomePageBO {
                     paymentDetail.getMember_name(),
                     paymentDetail.getPayment_date(),
                     paymentDetail.getPrice(),
-                    paymentDetail.getPayment_method(),
-                    paymentDetail.getMonth()
+                    paymentDetail.getPayment_method()
             ));
         }
         return paymentDetailTMS;

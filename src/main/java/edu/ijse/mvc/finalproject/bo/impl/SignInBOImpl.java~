@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class SignInBOImpl implements SignInBO {
     AdminDAO adminDAO = (AdminDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ADMIN);
     @Override
-    public boolean save(SignInDto signInDto) {
+    public boolean save(SignInDto signInDto) throws SQLException {
         return adminDAO.save(new Admin(signInDto.getAdminId(), signInDto.getName(), signInDto.getAddress(), signInDto.getPassword()));
     }
 

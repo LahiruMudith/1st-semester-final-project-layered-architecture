@@ -24,12 +24,12 @@ public class ScheduleBOImpl implements ScheduleBO {
     ExerciseScheduleDAO exerciseScheduleDAO = (ExerciseScheduleDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.EXERCISE_SCHEDULE);
     AdminDAO adminDAO = (AdminDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.ADMIN);
     @Override
-    public String getNextScheduleId() throws SQLException, ClassNotFoundException {
+    public String getNextScheduleId() throws SQLException {
         return scheduleDAO.generateNewId();
     }
 
     @Override
-    public ArrayList<ExerciseDto> getExercise() throws SQLException, ClassNotFoundException {
+    public ArrayList<ExerciseDto> getExercise() throws SQLException {
         ArrayList<Exercise> exercises = exerciseDAO.getAll();
         ArrayList<ExerciseDto> exerciseDtos = new ArrayList<>();
         for (Exercise exercise : exercises) {
@@ -42,7 +42,7 @@ public class ScheduleBOImpl implements ScheduleBO {
     }
 
     @Override
-    public ArrayList<AdminDto> getAdmin() throws SQLException, ClassNotFoundException {
+    public ArrayList<AdminDto> getAdmin() throws SQLException {
         ArrayList<Admin> list = adminDAO.getAll();
         ArrayList<AdminDto> adminDtos = new ArrayList<>();
         for (Admin admin : list) {
@@ -57,7 +57,7 @@ public class ScheduleBOImpl implements ScheduleBO {
     }
 
     @Override
-    public ArrayList<ExerciseScheduleDto> getSchedule() throws SQLException, ClassNotFoundException {
+    public ArrayList<ExerciseScheduleDto> getSchedule() throws SQLException {
         ArrayList<ExerciseSchedule> exerciseSchedules = exerciseScheduleDAO.getAll();
         ArrayList<ExerciseScheduleDto> exerciseScheduleDtos = new ArrayList<>();
         for (ExerciseSchedule exerciseSchedule : exerciseSchedules) {
@@ -112,13 +112,13 @@ public class ScheduleBOImpl implements ScheduleBO {
             connection.setAutoCommit(true);
             return true;
 
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+    public boolean delete(String id) {
         return scheduleDAO.delete(id);
     }
 
@@ -160,7 +160,7 @@ public class ScheduleBOImpl implements ScheduleBO {
             connection.commit();
             connection.setAutoCommit(true);
             return true;
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }

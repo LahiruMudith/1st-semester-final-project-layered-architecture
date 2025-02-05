@@ -54,8 +54,8 @@ public class PaymentPlanDAOImpl implements PaymentPlanDAO {
         if (rst.next()){
             PaymentPlan paymentPlan = new PaymentPlan(
                     rst.getString(1),
-                    rst.getString(2),
-                    rst.getDouble(3)
+                    rst.getString(1),
+                    rst.getDouble(1)
             );
             return paymentPlan;
         }

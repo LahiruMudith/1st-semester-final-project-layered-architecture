@@ -58,7 +58,7 @@ public class ManageDietPlanController implements Initializable {
     DietPlanBOImpl dietPlanBO = (DietPlanBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.DIET_PLAN);
 
     @FXML
-    void btnAdd(ActionEvent event) throws SQLException {
+    void btnAdd(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = txtId.getText();
         String name = txtName.getText();
         String adminId = txtAdminId.getText();
@@ -75,7 +75,7 @@ public class ManageDietPlanController implements Initializable {
     }
 
     @FXML
-    void btnDelete(ActionEvent event) {
+    void btnDelete(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = txtId.getText();
         boolean b = dietPlanBO.delete(id);
         if (b){
@@ -85,7 +85,7 @@ public class ManageDietPlanController implements Initializable {
     }
 
     @FXML
-    void btnUpdate(ActionEvent event) {
+    void btnUpdate(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = txtId.getText();
         String name = txtName.getText();
         String adminId = txtAdminId.getText();
@@ -148,7 +148,7 @@ public class ManageDietPlanController implements Initializable {
             System.out.println("DietPlanController.loadTable 1" + dietPlanDtos);
             dietPlanDtos = dietPlanBO.loadTable();
             System.out.println("DietPlanController.loadTable 2" + dietPlanDtos);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 

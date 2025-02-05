@@ -13,7 +13,7 @@ public class DietPlanBOImpl implements DietPlanBO {
     DietPlanDAO dietPlanDAO = (DietPlanDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.DIET_PLAN);
 
     @Override
-    public boolean add(DietPlanDto dietPlanDto) throws SQLException {
+    public boolean add(DietPlanDto dietPlanDto) throws SQLException, ClassNotFoundException {
         return dietPlanDAO.save(new DietPlan(
                 dietPlanDto.getDiet_plan_id(),
                 dietPlanDto.getAdmin_id(),
@@ -24,12 +24,12 @@ public class DietPlanBOImpl implements DietPlanBO {
     }
 
     @Override
-    public boolean delete(String id) {
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
         return dietPlanDAO.delete(id);
     }
 
     @Override
-    public boolean update(DietPlanDto dietPlanDto) {
+    public boolean update(DietPlanDto dietPlanDto) throws SQLException, ClassNotFoundException {
         return dietPlanDAO.update(new DietPlan(
                 dietPlanDto.getDiet_plan_id(),
                 dietPlanDto.getAdmin_id(),
@@ -40,7 +40,7 @@ public class DietPlanBOImpl implements DietPlanBO {
     }
 
     @Override
-    public ArrayList<DietPlanDto> loadTable() throws SQLException {
+    public ArrayList<DietPlanDto> loadTable() throws SQLException, ClassNotFoundException {
         ArrayList<DietPlan> dietPlans = dietPlanDAO.getAll();
         ArrayList<DietPlanDto> dietPlanDtos = new ArrayList<>();
         for (DietPlan dietPlan : dietPlans) {

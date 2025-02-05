@@ -112,9 +112,9 @@ public class HomePageController implements Initializable {
                     date,
                     price,
                     paymentMethod,
-                    adminid,
-                    month
+                    adminid
             );
+            System.out.println(paymentDetailDto);
 
             boolean b = homePageBO.markFee(paymentDetailDto);
             if (b){

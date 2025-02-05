@@ -75,6 +75,12 @@ public class ScheduleDAOImpl implements ScheduleDAO {
 
     @Override
     public int getCount() throws SQLException, ClassNotFoundException {
-        return 0;
+        ResultSet rst = CrudUtil.execute("select count(schedule_id) from schedule");
+
+        int count = 0;
+        while (rst.next()){
+            count = rst.getInt(1);
+        }
+        return count;
     }
 }

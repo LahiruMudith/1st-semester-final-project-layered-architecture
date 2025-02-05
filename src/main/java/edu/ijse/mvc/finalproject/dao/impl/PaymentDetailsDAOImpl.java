@@ -17,14 +17,13 @@ public class PaymentDetailsDAOImpl implements PaymentDetailsDAO {
 
     @Override
     public boolean save(PaymentDetail entity) throws SQLException {
-        return CrudUtil.execute("insert into paymentdetail values (?,?,?,?,?,?,?)",
+        return CrudUtil.execute("insert into paymentdetail values (?,?,?,?,?,?)",
                 entity.getPayment_id(),
                 entity.getMember_id(),
                 entity.getMember_name(),
                 entity.getPayment_date(),
                 entity.getPrice(),
-                entity.getPayment_method(),
-                entity.getMonth()
+                entity.getPayment_method()
         );
     }
 

@@ -129,12 +129,6 @@ public class MemberDAOImpl implements MemberDAO {
 
     @Override
     public int getCount() throws SQLException, ClassNotFoundException {
-        ResultSet rst = CrudUtil.execute("select count(employee_id) from employee");
-
-        int count = 0;
-        while (rst.next()){
-            count = rst.getInt(1);
-        }
-        return count;
+        return 0;
     }
 }

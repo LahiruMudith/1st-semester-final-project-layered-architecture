@@ -77,6 +77,12 @@ public class DietPlanDAOImpl implements DietPlanDAO {
 
     @Override
     public int getCount() throws SQLException, ClassNotFoundException {
-        return 0;
+        ResultSet rst = CrudUtil.execute("select count(diet_plan_id) from diet_plan");
+
+        int count = 0;
+        while (rst.next()){
+            count = rst.getInt(1);
+        }
+        return count;
     }
 }

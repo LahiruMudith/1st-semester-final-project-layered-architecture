@@ -7,11 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface DietPlanBO extends SuperBO{
-    boolean add(DietPlanDto dietPlanDto) throws SQLException;
+    boolean add(DietPlanDto dietPlanDto) throws SQLException, ClassNotFoundException;
 
-    boolean delete(String id);
+    boolean delete(String id) throws SQLException, ClassNotFoundException;
 
-    boolean update(DietPlanDto dietPlanDto);
+    boolean update(DietPlanDto dietPlanDto) throws SQLException, ClassNotFoundException;
 
-    ArrayList<DietPlanDto> loadTable() throws SQLException;
+    ArrayList<DietPlanDto> loadTable() throws SQLException, ClassNotFoundException;
 }

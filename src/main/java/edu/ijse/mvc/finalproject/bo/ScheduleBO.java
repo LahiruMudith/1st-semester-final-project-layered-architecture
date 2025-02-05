@@ -9,17 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface ScheduleBO extends SuperBO{
-    String getNextScheduleId() throws SQLException;
+    String getNextScheduleId() throws SQLException, ClassNotFoundException;
 
-    ArrayList<ExerciseDto> getExercise() throws SQLException;
+    ArrayList<ExerciseDto> getExercise() throws SQLException, ClassNotFoundException;
 
-    ArrayList<AdminDto> getAdmin() throws SQLException;
+    ArrayList<AdminDto> getAdmin() throws SQLException, ClassNotFoundException;
 
-    ArrayList<ExerciseScheduleDto> getSchedule() throws SQLException;
+    ArrayList<ExerciseScheduleDto> getSchedule() throws SQLException, ClassNotFoundException;
 
     boolean save(ScheduleDto scheduleDto);
 
-    boolean delete(String id);
+    boolean delete(String id) throws SQLException, ClassNotFoundException;
 
     boolean update(ScheduleDto scheduleDto);
 }
