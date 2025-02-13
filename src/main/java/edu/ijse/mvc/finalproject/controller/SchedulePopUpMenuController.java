@@ -1,7 +1,8 @@
 package edu.ijse.mvc.finalproject.controller;
 
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.impl.ScheduleBOImpl;
 import edu.ijse.mvc.finalproject.db.DBConnection;
-import edu.ijse.mvc.finalproject.model.ScheduleModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,7 +22,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class SchedulePopUpMenuController implements Initializable {
-    ScheduleModel scheduleModel = new ScheduleModel();
+    ScheduleBOImpl scheduleBO = (ScheduleBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.SCHEDULE);
     String selectScheduleId = null;
 
     @FXML
@@ -73,7 +74,7 @@ public class SchedulePopUpMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            ArrayList<String> scheduleName = scheduleModel.getScheduleName();
+            ArrayList<String> scheduleName = scheduleBO.getScheduleName();
             ObservableList<String> observableList = FXCollections.observableArrayList();
             observableList.addAll(scheduleName);
             txt.setItems(observableList);
@@ -81,6 +82,8 @@ public class SchedulePopUpMenuController implements Initializable {
                 selectScheduleId = txt.getSelectionModel().getSelectedItem();
             });
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

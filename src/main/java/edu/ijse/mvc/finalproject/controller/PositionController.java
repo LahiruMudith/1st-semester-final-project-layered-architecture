@@ -1,14 +1,16 @@
 package edu.ijse.mvc.finalproject.controller;
 
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.PositionItemBO;
 import edu.ijse.mvc.finalproject.dto.PositionItemDto;
-import edu.ijse.mvc.finalproject.model.ManageEmployeeModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+
+import java.sql.SQLException;
 
 public class PositionController {
 
@@ -19,11 +21,11 @@ public class PositionController {
     private TextField txtPositionName;
 
     @FXML
-    void btnAddPosition(ActionEvent event) {
-        ManageEmployeeModel manageEmployeeModel = new ManageEmployeeModel();
+    void btnAddPosition(ActionEvent event) throws SQLException, ClassNotFoundException {
+        PositionItemBO positionItemBO = (PositionItemBO) BOFactory.getInstance().getBO(BOFactory.BOType.POSITION_ITEM);
 
         PositionItemDto positionItemDto = new PositionItemDto(txtPositionName.getText());
-        boolean b = manageEmployeeModel.setPosition(positionItemDto);
+        boolean b = positionItemBO.setPosition(positionItemDto);
         if (b){
             Stage window = (Stage) txtError.getScene().getWindow();
             window.close();

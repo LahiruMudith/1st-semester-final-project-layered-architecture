@@ -1,6 +1,6 @@
 package edu.ijse.mvc.finalproject.dao.impl;
 
-import edu.ijse.mvc.finalproject.dao.PositionDAO;
+import edu.ijse.mvc.finalproject.dao.PositionItemDAO;
 import edu.ijse.mvc.finalproject.entity.PositionItem;
 import edu.ijse.mvc.finalproject.util.CrudUtil;
 
@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PositionDAOImpl implements PositionDAO {
+public class PositionItemDAOImpl implements PositionItemDAO {
     @Override
     public ArrayList<PositionItem> getAll() throws SQLException {
         ResultSet rst = CrudUtil.execute("select * from positionitem");
@@ -26,7 +26,7 @@ public class PositionDAOImpl implements PositionDAO {
 
     @Override
     public boolean save(PositionItem entity) {
-        return false;
+        return CrudUtil.execute("insert into positionItem values (?)", entity.getPositionName());
     }
 
     @Override

@@ -5,7 +5,6 @@ import edu.ijse.mvc.finalproject.bo.BOFactory;
 import edu.ijse.mvc.finalproject.bo.impl.EmployeeBOImpl;
 import edu.ijse.mvc.finalproject.dto.*;
 import edu.ijse.mvc.finalproject.dto.tm.EmployeeTM;
-import edu.ijse.mvc.finalproject.model.ManageEmployeeModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

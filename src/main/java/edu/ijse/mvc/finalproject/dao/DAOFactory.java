@@ -24,7 +24,7 @@ public class DAOFactory {
             case FITNESS_CENTER:
                 return new FitnessCenterDAOImpl();
             case POSITION_ITEM:
-                return new PositionDAOImpl();
+                return new PositionItemDAOImpl();
             case DIET_PLAN:
                 return new DietPlanDAOImpl();
             case SCHEDULE:

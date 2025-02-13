@@ -16,5 +16,8 @@ public class ScheduleDto {
     ArrayList<ExerciseScheduleDto> exerciseScheduleDtos;
 
     public ScheduleDto(String scheduleId, String name, String adminId) {
+        this.schedule_id = scheduleId;
+        this.name = name;
+        this.admin_id = adminId;
     }
 }

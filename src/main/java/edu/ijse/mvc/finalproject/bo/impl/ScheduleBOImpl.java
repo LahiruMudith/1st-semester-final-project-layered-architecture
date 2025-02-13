@@ -11,10 +11,8 @@ import edu.ijse.mvc.finalproject.entity.Admin;
 import edu.ijse.mvc.finalproject.entity.Exercise;
 import edu.ijse.mvc.finalproject.entity.ExerciseSchedule;
 import edu.ijse.mvc.finalproject.entity.Schedule;
-import edu.ijse.mvc.finalproject.util.CrudUtil;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -83,6 +81,7 @@ public class ScheduleBOImpl implements ScheduleBO {
             connection.setAutoCommit(false);
             for (ExerciseScheduleDto exerciseScheduleDto : scheduleDto.getExerciseScheduleDtos()) {
                 System.out.println("for loop ekata awa");
+                System.out.println(scheduleDto.getSchedule_id());
                 boolean isSavedSheduleTable = scheduleDAO.save(new Schedule(
                         scheduleDto.getSchedule_id(),
                         scheduleDto.getName(),
@@ -163,5 +162,20 @@ public class ScheduleBOImpl implements ScheduleBO {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public String getNextExerciseId() throws SQLException, ClassNotFoundException {
+        return scheduleDAO.generateNewId();
+    }
+
+    @Override
+    public ArrayList<String> getScheduleName() throws SQLException, ClassNotFoundException {
+        ArrayList<Schedule> schedules = scheduleDAO.getAll();
+        ArrayList<String> names = new ArrayList<>();
+        for (Schedule schedule : schedules){
+            names.add(schedule.getName());
+        }
+        return names;
     }
 }

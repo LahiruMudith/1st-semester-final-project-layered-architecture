@@ -29,7 +29,11 @@ public class ExerciseDAOImpl implements ExerciseDAO {
 
     @Override
     public boolean save(Exercise entity) {
-        return false;
+        return CrudUtil.execute("insert into exercise values (?,?,?)",
+                entity.getExercise_id(),
+                entity.getExercise_name(),
+                entity.getDescription()
+        );
     }
 
     @Override

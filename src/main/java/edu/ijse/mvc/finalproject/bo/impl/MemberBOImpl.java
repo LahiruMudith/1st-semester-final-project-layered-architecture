@@ -67,6 +67,7 @@ public class MemberBOImpl implements MemberBO {
     @Override
     public ArrayList<ScheduleDto> getSchedule() throws SQLException {
         ArrayList<Schedule> schedules = scheduleDAO.getAll();
+        System.out.println("DAO Schedules" + schedules);
         ArrayList<ScheduleDto> scheduleDtos = new ArrayList<>();
         for (Schedule schedule : schedules) {
             scheduleDtos.add(new ScheduleDto(
@@ -75,6 +76,7 @@ public class MemberBOImpl implements MemberBO {
                     schedule.getAdmin_id()
             ));
         }
+        System.out.println("return Schedules" + scheduleDtos);
         return scheduleDtos;
     }
 

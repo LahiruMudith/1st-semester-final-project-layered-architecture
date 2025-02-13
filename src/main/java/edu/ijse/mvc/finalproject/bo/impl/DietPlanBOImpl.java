@@ -55,4 +55,19 @@ public class DietPlanBOImpl implements DietPlanBO {
         System.out.println("Diet Plan Dtos " + dietPlanDtos);
         return dietPlanDtos;
     }
+
+    @Override
+    public ArrayList<String> getDietPlanIds() throws SQLException, ClassNotFoundException {
+        ArrayList<DietPlan> all = dietPlanDAO.getAll();
+        ArrayList<String> ids = new ArrayList<>();
+        for (DietPlan dietPlan : all){
+            ids.add(dietPlan.getDiet_plan_id());
+        }
+        return ids;
+    }
+
+    @Override
+    public String getNextDeitPlanId() throws SQLException, ClassNotFoundException {
+        return dietPlanDAO.generateNewId();
+    }
 }

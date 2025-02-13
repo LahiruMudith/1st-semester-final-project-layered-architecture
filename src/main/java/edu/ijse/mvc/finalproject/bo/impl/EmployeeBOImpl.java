@@ -4,7 +4,7 @@ import edu.ijse.mvc.finalproject.bo.EmployeeBO;
 import edu.ijse.mvc.finalproject.dao.DAOFactory;
 import edu.ijse.mvc.finalproject.dao.impl.EmployeeDAOImpl;
 import edu.ijse.mvc.finalproject.dao.impl.FitnessCenterDAOImpl;
-import edu.ijse.mvc.finalproject.dao.impl.PositionDAOImpl;
+import edu.ijse.mvc.finalproject.dao.impl.PositionItemDAOImpl;
 import edu.ijse.mvc.finalproject.dto.EmployeeDto;
 import edu.ijse.mvc.finalproject.dto.FitnessCenterDto;
 import edu.ijse.mvc.finalproject.dto.PositionItemDto;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class EmployeeBOImpl implements EmployeeBO {
     EmployeeDAOImpl employeeDAO = (EmployeeDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.EMPLOYEE);
     FitnessCenterDAOImpl fitnessCenterDAO = (FitnessCenterDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.FITNESS_CENTER);
-    PositionDAOImpl positionDAO = (PositionDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.POSITION_ITEM);
+    PositionItemDAOImpl positionDAO = (PositionItemDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.POSITION_ITEM);
 
     @Override
     public boolean save(EmployeeDto employeeDto) {
@@ -73,6 +73,8 @@ public class EmployeeBOImpl implements EmployeeBO {
         ArrayList<Employee> employees = employeeDAO.getAll();
         ArrayList<EmployeeDto> employeeDtos = new ArrayList<>();
         for (Employee employee : employees) {
+            String phoneNum = employee.getPhone_number();
+            employee.setPhone_number("0"+phoneNum);
             employeeDtos.add(new EmployeeDto(
                     employee.getEmployee_id(),
                     employee.getCenter_id(),

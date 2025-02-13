@@ -1,9 +1,9 @@
 package edu.ijse.mvc.finalproject.controller;
 
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.ExerciseAddBO;
+import edu.ijse.mvc.finalproject.bo.ScheduleBO;
 import edu.ijse.mvc.finalproject.dto.ExerciseDto;
-import edu.ijse.mvc.finalproject.dto.PositionItemDto;
-import edu.ijse.mvc.finalproject.model.ManageEmployeeModel;
-import edu.ijse.mvc.finalproject.model.ScheduleModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +18,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ExerciseAddController implements Initializable {
-    ScheduleModel scheduleModel = new ScheduleModel();
+    ScheduleBO scheduleBO = (ScheduleBO) BOFactory.getInstance().getBO(BOFactory.BOType.SCHEDULE);
+    ExerciseAddBO exerciseAddBO = (ExerciseAddBO) BOFactory.getInstance().getBO(BOFactory.BOType.EXERCISE_ADD);
     @FXML
     private Text txtError;
 
@@ -32,15 +33,14 @@ public class ExerciseAddController implements Initializable {
     private TextField txtName;
 
     @FXML
-    void btnAddPosition(ActionEvent event) {
-        ScheduleModel scheduleModel = new ScheduleModel();
+    void btnAddPosition(ActionEvent event) throws SQLException, ClassNotFoundException {
 
         ExerciseDto exerciseDto = new ExerciseDto(
                 txtName.getText(),
                 txtId.getText(),
                 txtDes.getText()
         );
-        boolean b = scheduleModel.addExercise(exerciseDto);
+        boolean b = exerciseAddBO.save(exerciseDto);
         if (b){
             Stage window = (Stage) txtError.getScene().getWindow();
             window.close();
@@ -61,12 +61,14 @@ public class ExerciseAddController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            txtName.setText(scheduleModel.getNextExerciseId());
+            txtName.setText(scheduleBO.getNextExerciseId());
         } catch (SQLException e) {
             e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Exercise Id Set Error");
             alert.show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 }

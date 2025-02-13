@@ -9,7 +9,6 @@ import edu.ijse.mvc.finalproject.dto.ExerciseScheduleDto;
 import edu.ijse.mvc.finalproject.dto.ScheduleDto;
 import edu.ijse.mvc.finalproject.dto.tm.ExerciseScheduleTM;
 import edu.ijse.mvc.finalproject.dto.tm.ScheduleTM;
-import edu.ijse.mvc.finalproject.model.ScheduleModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -187,25 +186,29 @@ public class ManageScheduleController implements Initializable {
 
     @FXML
     void btnAddExercise(MouseEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ExerciseAdd.fxml"));
-        try {
-            Parent load = loader.load();
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setScene(new Scene(load));
-            stage.setResizable(true);
-            stage.initModality(Modality.WINDOW_MODAL);
-            Window underWindow = btnAdd.getScene().getWindow();
-            stage.initOwner(underWindow);
+        String scheduleId = txtId.getText();
+        String scheduleName = txtName.getText();
+        String adminId = txtAdminId.getId();
+        String exerciseId = txtExercise.getId();
+        String exerciseName = txtExercise.getText();
+        int exerciseSet = Integer.parseInt(txtSet.getText());
+        int exerciseCount = Integer.parseInt(txtCount.getText());
 
-            stage.showAndWait();
-            pageRefesh();
-        } catch (IOException | SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Exercise Add Menu Load Fail");
-            alert.show();
+        ExerciseScheduleTM exerciseScheduleTM = new ExerciseScheduleTM(
+                scheduleId,
+                exerciseId,
+                exerciseName,
+                scheduleName,
+                exerciseCount,
+                exerciseSet,
+                adminId
+        );
+        tms.add(exerciseScheduleTM);
+        for (ExerciseScheduleTM tm : tms) {
+            System.out.println(tm.getExercise_name());
         }
+
+        tblDescription.setItems(tms);
     }
 
     @FXML
@@ -327,12 +330,6 @@ public class ManageScheduleController implements Initializable {
 
     @FXML
     void tblClick(MouseEvent event) throws SQLException, ClassNotFoundException {
-//        txtExercise.setDisable(true);
-//        txtCount.setEditable(false);
-//        txtCount.setDisable(true);
-//        txtSet.setDisable(true);
-//        txtSet.setEditable(false);
-//        imgAddExercise.setDisable(true);
         clearData();
         btnAdd.setDisable(true);
         btnDelete.setDisable(false);

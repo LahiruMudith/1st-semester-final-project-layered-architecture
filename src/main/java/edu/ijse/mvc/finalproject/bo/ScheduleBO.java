@@ -22,4 +22,8 @@ public interface ScheduleBO extends SuperBO{
     boolean delete(String id) throws SQLException, ClassNotFoundException;
 
     boolean update(ScheduleDto scheduleDto);
+
+    String getNextExerciseId() throws SQLException, ClassNotFoundException;
+
+    ArrayList<String> getScheduleName() throws SQLException, ClassNotFoundException;
 }

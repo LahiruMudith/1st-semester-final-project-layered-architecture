@@ -14,4 +14,8 @@ public interface DietPlanBO extends SuperBO{
     boolean update(DietPlanDto dietPlanDto) throws SQLException, ClassNotFoundException;
 
     ArrayList<DietPlanDto> loadTable() throws SQLException, ClassNotFoundException;
+
+    ArrayList<String> getDietPlanIds() throws SQLException, ClassNotFoundException;
+
+    String getNextDeitPlanId() throws SQLException, ClassNotFoundException;
 }

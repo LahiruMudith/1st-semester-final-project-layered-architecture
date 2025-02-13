@@ -2,12 +2,9 @@ package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.bo.BOFactory;
 import edu.ijse.mvc.finalproject.bo.HomePageBO;
-import edu.ijse.mvc.finalproject.dao.DAOFactory;
-import edu.ijse.mvc.finalproject.dao.impl.PaymentDAOImpl;
 import edu.ijse.mvc.finalproject.dto.MemberDto;
 import edu.ijse.mvc.finalproject.dto.PaymentDetailDto;
 import edu.ijse.mvc.finalproject.dto.tm.PaymentDetailTM;
-import edu.ijse.mvc.finalproject.model.HomePageModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,7 +29,6 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
-    HomePageModel homePageModel = new HomePageModel();
     LoginController loginController = new LoginController();
 
     @FXML

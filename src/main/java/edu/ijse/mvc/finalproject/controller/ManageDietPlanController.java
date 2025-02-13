@@ -4,7 +4,6 @@ import edu.ijse.mvc.finalproject.bo.BOFactory;
 import edu.ijse.mvc.finalproject.bo.impl.DietPlanBOImpl;
 import edu.ijse.mvc.finalproject.dto.DietPlanDto;
 import edu.ijse.mvc.finalproject.dto.tm.DietPlanTM;
-import edu.ijse.mvc.finalproject.model.DietPlanModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,7 +19,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ManageDietPlanController implements Initializable {
-    DietPlanModel dietPlanModel = new DietPlanModel();
     private ObservableList<DietPlanTM> observableList = FXCollections.observableArrayList();
     @FXML
     private Button btnAdd;
@@ -130,7 +128,7 @@ public class ManageDietPlanController implements Initializable {
         txtDuration.setText("");
 
         try {
-            txtId.setText(dietPlanModel.getNextDeitPlanId());
+            txtId.setText(dietPlanBO.getNextDeitPlanId());
             LoginController loginController = new LoginController();
             txtAdminId.setText(loginController.currentAdminId);
         } catch (SQLException e) {
@@ -138,6 +136,8 @@ public class ManageDietPlanController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Diet Plan Id Set Error");
             alert.show();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
 
         loadTable();

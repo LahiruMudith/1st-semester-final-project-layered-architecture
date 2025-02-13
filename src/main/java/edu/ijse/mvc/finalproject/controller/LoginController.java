@@ -4,7 +4,6 @@ import edu.ijse.mvc.finalproject.AppInitializer;
 import edu.ijse.mvc.finalproject.bo.BOFactory;
 import edu.ijse.mvc.finalproject.bo.impl.LoginBOImpl;
 import edu.ijse.mvc.finalproject.dto.AdminDto;
-import edu.ijse.mvc.finalproject.model.LoginModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +26,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    LoginModel loginModel = new LoginModel();
 
     String currentAdminId = "A001";
     String currentAdminName = "Admin";

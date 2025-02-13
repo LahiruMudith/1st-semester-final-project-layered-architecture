@@ -2,15 +2,12 @@ package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.DataValidate.DataValidate;
 import edu.ijse.mvc.finalproject.bo.BOFactory;
-import edu.ijse.mvc.finalproject.bo.SignInBO;
 import edu.ijse.mvc.finalproject.bo.impl.SignInBOImpl;
 import edu.ijse.mvc.finalproject.dto.SignInDto;
-import edu.ijse.mvc.finalproject.model.SignInModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +19,6 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class SignInController implements Initializable {
-    SignInModel signInModel = new SignInModel();
     DataValidate dataValidate = new DataValidate();
 
     @FXML

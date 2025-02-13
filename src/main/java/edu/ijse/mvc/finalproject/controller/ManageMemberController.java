@@ -5,7 +5,6 @@ import edu.ijse.mvc.finalproject.bo.BOFactory;
 import edu.ijse.mvc.finalproject.bo.impl.MemberBOImpl;
 import edu.ijse.mvc.finalproject.dto.*;
 import edu.ijse.mvc.finalproject.dto.tm.MemberTM;
-import edu.ijse.mvc.finalproject.model.ManageMemberModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

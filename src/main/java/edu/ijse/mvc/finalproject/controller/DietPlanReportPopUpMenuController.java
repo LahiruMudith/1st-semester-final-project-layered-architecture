@@ -1,9 +1,8 @@
 package edu.ijse.mvc.finalproject.controller;
 
+import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.DietPlanBO;
 import edu.ijse.mvc.finalproject.db.DBConnection;
-import edu.ijse.mvc.finalproject.dto.PositionItemDto;
-import edu.ijse.mvc.finalproject.model.DietPlanModel;
-import edu.ijse.mvc.finalproject.model.ManageEmployeeModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,11 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -29,12 +25,12 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DietPlanReportPopUpMenuController implements Initializable {
-    DietPlanModel dietPlanModel = new DietPlanModel();
+    DietPlanBO dietPlanBO = (DietPlanBO) BOFactory.getInstance().getBO(BOFactory.BOType.DIET_PLAN);
     String selectedCusId = null;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            ArrayList<String> dietPlanIds = dietPlanModel.getDietPlanIds();
+            ArrayList<String> dietPlanIds = dietPlanBO.getDietPlanIds();
             ObservableList<String> observableList = FXCollections.observableArrayList();
             observableList.addAll(dietPlanIds);
             txtDietPlanId.setItems(observableList);
@@ -42,6 +38,8 @@ public class DietPlanReportPopUpMenuController implements Initializable {
                 selectedCusId = txtDietPlanId.getSelectionModel().getSelectedItem();
             });
         } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
