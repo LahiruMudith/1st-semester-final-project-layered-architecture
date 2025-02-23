@@ -2,6 +2,7 @@ package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.DataValidate.DataValidate;
 import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.ScheduleBO;
 import edu.ijse.mvc.finalproject.bo.impl.ScheduleBOImpl;
 import edu.ijse.mvc.finalproject.dto.AdminDto;
 import edu.ijse.mvc.finalproject.dto.ExerciseDto;
@@ -92,7 +93,7 @@ public class ManageScheduleController implements Initializable {
 
     DataValidate validate = new DataValidate();
     private ObservableList<ExerciseScheduleTM> tms = FXCollections.observableArrayList();
-    ScheduleBOImpl scheduleBO = (ScheduleBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.SCHEDULE);
+    ScheduleBO scheduleBO = (ScheduleBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.SCHEDULE);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -2,6 +2,7 @@ package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.AppInitializer;
 import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.LoginBO;
 import edu.ijse.mvc.finalproject.bo.impl.LoginBOImpl;
 import edu.ijse.mvc.finalproject.dto.AdminDto;
 import javafx.event.ActionEvent;
@@ -51,7 +52,7 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField txtPassword;
 
-    LoginBOImpl loginBO = (LoginBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.LOGIN);
+    LoginBO loginBO = (LoginBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.LOGIN);
 
     @FXML
     void btnGoToLogin(MouseEvent event) {

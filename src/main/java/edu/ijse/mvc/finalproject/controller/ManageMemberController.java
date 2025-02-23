@@ -2,6 +2,7 @@ package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.DataValidate.DataValidate;
 import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.MemberBO;
 import edu.ijse.mvc.finalproject.bo.impl.MemberBOImpl;
 import edu.ijse.mvc.finalproject.dto.*;
 import edu.ijse.mvc.finalproject.dto.tm.MemberTM;
@@ -99,7 +100,7 @@ public class ManageMemberController implements Initializable {
     @FXML
     private TextField txtWeight;
 
-    MemberBOImpl memberBO = (MemberBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.MEMBER);
+    MemberBO memberBO = (MemberBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.MEMBER);
 
     @FXML
     void btnAdd(ActionEvent event) {
