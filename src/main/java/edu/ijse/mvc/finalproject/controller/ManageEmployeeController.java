@@ -2,6 +2,7 @@ package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.DataValidate.DataValidate;
 import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.EmployeeBO;
 import edu.ijse.mvc.finalproject.bo.impl.EmployeeBOImpl;
 import edu.ijse.mvc.finalproject.dto.*;
 import edu.ijse.mvc.finalproject.dto.tm.EmployeeTM;
@@ -105,7 +106,7 @@ public class ManageEmployeeController implements Initializable {
     @FXML
     private MenuButton txtPosition;
 
-    EmployeeBOImpl employeeBO = (EmployeeBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.EMPLOYEE);
+    EmployeeBO employeeBO = (EmployeeBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.EMPLOYEE);
 
     @FXML
     void tblClick(MouseEvent event) {

@@ -1,6 +1,7 @@
 package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.DietPlanBO;
 import edu.ijse.mvc.finalproject.bo.impl.DietPlanBOImpl;
 import edu.ijse.mvc.finalproject.dto.DietPlanDto;
 import edu.ijse.mvc.finalproject.dto.tm.DietPlanTM;
@@ -53,7 +54,7 @@ public class ManageDietPlanController implements Initializable {
     @FXML
     private TextField txtAdminId;
 
-    DietPlanBOImpl dietPlanBO = (DietPlanBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.DIET_PLAN);
+    DietPlanBO dietPlanBO = (DietPlanBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.DIET_PLAN);
 
     @FXML
     void btnAdd(ActionEvent event) throws SQLException, ClassNotFoundException {

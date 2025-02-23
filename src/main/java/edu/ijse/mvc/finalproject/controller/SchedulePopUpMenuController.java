@@ -1,6 +1,7 @@
 package edu.ijse.mvc.finalproject.controller;
 
 import edu.ijse.mvc.finalproject.bo.BOFactory;
+import edu.ijse.mvc.finalproject.bo.ScheduleBO;
 import edu.ijse.mvc.finalproject.bo.impl.ScheduleBOImpl;
 import edu.ijse.mvc.finalproject.db.DBConnection;
 import javafx.collections.FXCollections;
@@ -22,7 +23,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class SchedulePopUpMenuController implements Initializable {
-    ScheduleBOImpl scheduleBO = (ScheduleBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.SCHEDULE);
+    ScheduleBO scheduleBO = (ScheduleBOImpl) BOFactory.getInstance().getBO(BOFactory.BOType.SCHEDULE);
     String selectScheduleId = null;
 
     @FXML
